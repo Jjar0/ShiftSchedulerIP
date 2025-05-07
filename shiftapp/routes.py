@@ -22,3 +22,13 @@ def login():
         else:
             flash('Invalid credentials')
     return render_template('login.html', form=form)
+
+@app.route('/admin')
+@login_required
+def adminDashboard():
+    return render_template('admin.html')
+
+@app.route('/employee')
+@login_required
+def employeeDashboard():
+    return render_template('employee.html')
