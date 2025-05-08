@@ -25,7 +25,7 @@ def login():
             else:
                 return redirect(url_for('employeeDashboard'))
         else:
-            flash('Invalid credentials')  # show error message
+            flash('Invalid credentials')  # show error
     return render_template('login.html', form=form)
 
 # admin dashboard
