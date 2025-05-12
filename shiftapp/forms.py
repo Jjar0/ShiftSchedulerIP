@@ -1,10 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired
-
-# shift form imports
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import InputRequired
 
 # form used for login
@@ -13,12 +8,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])  # password field
     submit = SubmitField('Login')  # submit button
 
-    from wtforms import DateField, TimeField, SelectField
-
 # form used for entering shifts 
 class ShiftForm(FlaskForm):
-    date = StringField('Date', validators=[InputRequired()])
-    startTime = StringField('Start Time', validators=[InputRequired()])
-    endTime = StringField('End Time', validators=[InputRequired()])
-    assignedTo = SelectField('Assign To', coerce=int)
-    submit = SubmitField('Create Shift')
+    date = StringField('Date', validators=[InputRequired()])  # date field (as string)
+    startTime = StringField('Start Time', validators=[InputRequired()])  # start time field
+    endTime = StringField('End Time', validators=[InputRequired()])  # end time field
+    assignedTo = SelectField('Assign To', coerce=int)  # dropdown for employee assignment
+    submit = SubmitField('Create Shift')  # submit button
