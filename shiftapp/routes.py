@@ -4,6 +4,11 @@ from shiftapp import app, db
 from shiftapp.models import User
 from shiftapp.forms import LoginForm
 
+# Scheduler form imports
+from shiftapp.models import User, Shift
+from shiftapp.forms import LoginForm, ShiftForm
+from flask_login import current_user
+
 # redirect root to login
 @app.route('/')
 def home():
@@ -28,14 +33,33 @@ def login():
             flash('Invalid credentials')  # show error message
     return render_template('login.html', form=form)
 
-# admin dashboard
-@app.route('/admin')
-@login_required
-def adminDashboard():
-    return render_template('admin.html')
-
 # employee dashboard
 @app.route('/employee')
 @login_required
 def employeeDashboard():
-    return render_template('employee.html')
+    # get shifts assigned to the currently logged in user
+    shifts = Shift.query.filter_by(assignedTo=current_user.id).all()
+    
+    # render dashboard, pass the shifts to the template
+    return render_template('employee.html', shifts=shifts)
+
+# admin page to add/view shifts
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def adminDashboard():
+    form = ShiftForm()
+    form.assignedTo.choices = [(user.id, user.username) for user in User.query.filter_by(role='employee')]
+
+    if form.validate_on_submit():
+        newShift = Shift(
+            date=form.date.data,
+            startTime=form.startTime.data,
+            endTime=form.endTime.data,
+            assignedTo=form.assignedTo.data
+        )
+        db.session.add(newShift)
+        db.session.commit()
+        flash('Shift added')
+
+    shifts = Shift.query.all()
+    return render_template('admin.html', form=form, shifts=shifts)
