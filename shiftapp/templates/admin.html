@@ -1,5 +1,49 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Admin Dashboard</h2>
-<p>Welcome, {{ current_user.username }}!</p>
+<div class="login-box">
+    <h2>Admin Dashboard</h2>
+
+    <h3>Create New Shift</h3>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <label>{{ form.date.label }}</label>
+        {{ form.date(size=32) }}
+
+        <label>{{ form.startTime.label }}</label>
+        {{ form.startTime(size=32) }}
+
+        <label>{{ form.endTime.label }}</label>
+        {{ form.endTime(size=32) }}
+
+        <label>{{ form.assignedTo.label }}</label>
+        {{ form.assignedTo() }}
+
+        <br><br>
+        {{ form.submit() }}
+    </form>
+
+    <hr>
+
+    <h3>Existing Shifts</h3>
+    <table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Assigned To</th>
+        </tr>
+        {% for shift in shifts %}
+        <tr>
+            <td>{{ shift.id }}</td>
+            <td>{{ shift.date }}</td>
+            <td>{{ shift.startTime }}</td>
+            <td>{{ shift.endTime }}</td>
+            <td>{{ shift.user.username if shift.user else 'Unassigned' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

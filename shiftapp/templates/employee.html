@@ -1,5 +1,25 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Employee Dashboard</h2>
-<p>Welcome, {{ current_user.username }}!</p>
+<div class="login-box">
+    <h2>Employee Dashboard</h2>
+
+    <h3>Your Assigned Shifts</h3>
+    <table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+        </tr>
+        {% for shift in shifts %}
+        <tr>
+            <td>{{ shift.id }}</td>
+            <td>{{ shift.date }}</td>
+            <td>{{ shift.startTime }}</td>
+            <td>{{ shift.endTime }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
