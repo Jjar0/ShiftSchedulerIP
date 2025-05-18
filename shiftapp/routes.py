@@ -70,7 +70,7 @@ def adminDashboard():
                 break
 
         if conflict:
-            flash('Shift conflict detected. Employee already has a shift during this time.')
+            flash('Shift conflict! Employee already has a shift during this time.')
         else:
             # No conflict; safe to add shift
             newShift = Shift(

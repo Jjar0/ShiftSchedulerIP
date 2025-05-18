@@ -7,6 +7,21 @@
 </head>
 <body>
 
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('adminDashboard') }}">Admin Dashboard</a>
+            {% else %}
+                <a href="{{ url_for('employeeDashboard') }}">Employee Dashboard</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+    </div>
+
     <!-- Flash Messages -->
     <div class="flash-container">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -26,4 +41,5 @@
     </div>
 
 </body>
+
 </html>
