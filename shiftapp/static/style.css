@@ -78,21 +78,28 @@ input[type="submit"]:hover {
 
 .navbar {
     background-color: #cccccc;
-    border-bottom: 2px solid #999999;
-    padding: 10px 0;
-    text-align: center;
-    margin-bottom: 30px;
+    border-bottom: 3px solid #999999;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.navbar a {
+.nav-title {
+    font-family: "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.logout-button {
     color: #000000;
     text-decoration: none;
-    margin: 0 15px;
     font-family: "Times New Roman", serif;
     font-weight: bold;
 }
 
-.navbar a:hover {
+.logout-button:hover {
     text-decoration: underline;
 }
 

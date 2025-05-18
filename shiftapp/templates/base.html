@@ -9,14 +9,9 @@
 
     <!-- Navigation Bar -->
     <div class="navbar">
-        <a href="{{ url_for('home') }}">Home</a>
+        <span class="nav-title">Employee Shift Scheduler</span>
         {% if current_user.is_authenticated %}
-            {% if current_user.role == 'admin' %}
-                <a href="{{ url_for('adminDashboard') }}">Admin Dashboard</a>
-            {% else %}
-                <a href="{{ url_for('employeeDashboard') }}">Employee Dashboard</a>
-            {% endif %}
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
         {% endif %}
     </div>
 
@@ -34,11 +29,12 @@
         {% endwith %}
     </div>
 
-    <!-- Main -->
+    <!-- Main Content -->
     <div class="main-content">
         {% block content %}{% endblock %}
     </div>
 
 </body>
+
 
 </html>

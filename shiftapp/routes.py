@@ -4,6 +4,8 @@ from shiftapp import app, db
 from shiftapp.models import User
 from shiftapp.forms import LoginForm
 
+from flask_login import logout_user
+
 # Scheduler form imports
 from shiftapp.models import User, Shift
 from shiftapp.forms import LoginForm, ShiftForm
@@ -72,7 +74,7 @@ def adminDashboard():
         if conflict:
             flash('Shift conflict! Employee already has a shift during this time.')
         else:
-            # No conflict; safe to add shift
+            # No conflict -> safe to add shift
             newShift = Shift(
                 date=form.date.data,
                 startTime=form.startTime.data,
@@ -85,3 +87,9 @@ def adminDashboard():
 
     shifts = Shift.query.all()
     return render_template('admin.html', form=form, shifts=shifts)
+
+#route for logging out :D
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
