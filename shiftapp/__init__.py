@@ -17,16 +17,16 @@ app = Flask(
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shifts.db'
 
-# initialize the database
+# init database
 db = SQLAlchemy(app)
 
 # setup login manager
 loginManager = LoginManager(app)
-loginManager.login_view = 'login'  # redirect here if not logged in
+loginManager.login_view = 'login'  # redirect if not logged in
 
 from shiftapp.models import User
 
-# load user from session
+# load user
 @loginManager.user_loader
 def loadUser(userId):
     return User.query.get(int(userId))
