@@ -51,15 +51,37 @@ def adminDashboard():
     form.assignedTo.choices = [(user.id, user.username) for user in User.query.filter_by(role='employee')]
 
     if form.validate_on_submit():
-        newShift = Shift(
-            date=form.date.data,
-            startTime=form.startTime.data,
-            endTime=form.endTime.data,
-            assignedTo=form.assignedTo.data
-        )
-        db.session.add(newShift)
-        db.session.commit()
-        flash('Shift added')
+        # Check if assigned user actually exists
+        assignedUser = User.query.get(form.assignedTo.data)
+        if not assignedUser:
+            flash('Assigned user does not exist.')
+            return redirect(url_for('adminDashboard'))
+
+        # Check for conflicting shifts
+        existingShifts = Shift.query.filter_by(
+            assignedTo=form.assignedTo.data,
+            date=form.date.data
+        ).all()
+
+        conflict = False
+        for shift in existingShifts:
+            if not (form.endTime.data <= shift.startTime or form.startTime.data >= shift.endTime):
+                conflict = True
+                break
+
+        if conflict:
+            flash('Shift conflict detected. Employee already has a shift during this time.')
+        else:
+            # No conflict; safe to add shift
+            newShift = Shift(
+                date=form.date.data,
+                startTime=form.startTime.data,
+                endTime=form.endTime.data,
+                assignedTo=form.assignedTo.data
+            )
+            db.session.add(newShift)
+            db.session.commit()
+            flash('Shift added successfully.')
 
     shifts = Shift.query.all()
     return render_template('admin.html', form=form, shifts=shifts)
