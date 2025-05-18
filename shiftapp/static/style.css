@@ -77,29 +77,46 @@ input[type="submit"]:hover {
 }
 
 .navbar {
-    background-color: #cccccc;
+    background-color: #d0d0d0;
     border-bottom: 3px solid #999999;
-    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 0 0 8px 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-title {
-    font-family: "Times New Roman", serif;
-    font-size: 24px;
+    font-family: "Georgia", serif;
+    font-size: 28px;
     font-weight: bold;
-    color: #333333;
+    color: #222222;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.nav-actions {
+    flex-shrink: 0;
 }
 
 .logout-button {
-    color: #000000;
+    color: #ffffff;
     text-decoration: none;
-    font-family: "Times New Roman", serif;
+    font-family: "Georgia", serif;
+    font-size: 16px;
     font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333333;
+    transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
-    text-decoration: underline;
+    background-color: #555555;
+    cursor: pointer;
 }
-

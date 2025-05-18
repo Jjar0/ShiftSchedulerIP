@@ -9,11 +9,14 @@
 
     <!-- Navigation Bar -->
     <div class="navbar">
-        <span class="nav-title">Employee Shift Scheduler</span>
+        <div class="nav-title">Employee Shift Scheduler</div>
         {% if current_user.is_authenticated %}
-            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+            <div class="nav-actions">
+                <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+            </div>
         {% endif %}
     </div>
+
 
 
     <!-- Flash Messages -->
