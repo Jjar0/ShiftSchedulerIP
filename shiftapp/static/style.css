@@ -55,7 +55,7 @@ table, th, td {
 th, td {
     padding: 8px;
     text-align: center;
-    font-family: "Courier New", monospace;
+    font-family: "Times New Roman", monospace;
 }
 
 input, select {
@@ -63,7 +63,7 @@ input, select {
     width: 80%;
     margin: 5px 0;
     border: 1px solid #aaa;
-    font-family: "Courier New", monospace;
+    font-family: "Times New Roman", monospace;
 }
 
 input[type="submit"] {
@@ -91,7 +91,7 @@ input[type="submit"]:hover {
 }
 
 .nav-title {
-    font-family: "Georgia", serif;
+    font-family: "Times New Roman", serif;
     font-size: 28px;
     font-weight: bold;
     color: #222222;
@@ -106,7 +106,7 @@ input[type="submit"]:hover {
 .logout-button {
     color: #ffffff;
     text-decoration: none;
-    font-family: "Georgia", serif;
+    font-family: "Times New Roman", serif;
     font-size: 16px;
     font-weight: bold;
     padding: 8px 16px;
