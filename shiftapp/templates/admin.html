@@ -8,17 +8,21 @@
     <form method="POST">
         {{ form.hidden_tag() }}
         
-        <label>{{ form.date.label }}</label>
-        {{ form.date(type="date") }}
+        <div class="form-row">
+            {{ form.date.label }} {{ form.date(type="date") }}
+        </div>
 
-        <label>{{ form.startTime.label }}</label>
-        {{ form.startTime(size=32) }}
+        <div class="form-row">
+            {{ form.startTime.label }} {{ form.startTime(size=32) }}
+        </div>
 
-        <label>{{ form.endTime.label }}</label>
-        {{ form.endTime(size=32) }}
+        <div class="form-row">
+            {{ form.endTime.label }} {{ form.endTime(size=32) }}
+        </div>
 
-        <label>{{ form.assignedTo.label }}</label>
-        {{ form.assignedTo() }}
+        <div class="form-row">
+            {{ form.assignedTo.label }} {{ form.assignedTo() }}
+        </div>
 
         <br><br>
         {{ form.submit() }}
