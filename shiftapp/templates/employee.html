@@ -9,6 +9,7 @@
         <tr>
             <th>ID</th>
             <th>Date</th>
+            <th>Day</th>
             <th>Start</th>
             <th>End</th>
         </tr>
@@ -16,6 +17,7 @@
         <tr>
             <td>{{ shift.id }}</td>
             <td>{{ shift.date }}</td>
+            <td>{{ shift.date | weekday }}</td>  <!-- Day of week column using filter -->
             <td>{{ shift.startTime }}</td>
             <td>{{ shift.endTime }}</td>
         </tr>

@@ -3,16 +3,21 @@
 {% block content %}
 <div class="login-box">
   <h2>Login</h2>
-  <form method="POST" autocomplete="off">
+  <form method="POST">
     {{ form.hidden_tag() }}
-    
+
     <label>{{ form.username.label }}</label>
-    {{ form.username(size=32) }}
-    
+    {{ form.username() }}
+
+    <br>
+
     <label>{{ form.password.label }}</label>
-    {{ form.password(size=32) }}
-    
-    {{ form.submit() }}
+    {{ form.password() }}
+
+    <br><br>
+
+    {{ form.submit(class="small-button") }}
   </form>
+
 </div>
 {% endblock %}

@@ -103,7 +103,7 @@ input[type="submit"]:hover {
     flex-shrink: 0;
 }
 
-.logout-button {
+.nav-button {
     color: #ffffff;
     text-decoration: none;
     font-family: "Times New Roman", serif;
@@ -162,3 +162,22 @@ input.delete-button[type="submit"]:hover {
     background-color: #990000;
     cursor: pointer;
 }
+
+.login-box form label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.login-box form input,
+.login-box form select {
+    display: inline-block;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.login-box form {
+    margin-bottom: 30px;
+}
+

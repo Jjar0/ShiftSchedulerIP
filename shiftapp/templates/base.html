@@ -7,22 +7,19 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Nav Bar -->
     <div class="navbar">
-        <div class="nav-title">Employee Shift Scheduler</div>
-        <div class="nav-links">
+        <span class="nav-title">Employee Shift Scheduler v1.0</span>
+        <div class="nav-actions">
             {% if current_user.is_authenticated and current_user.role == 'admin' %}
-                <a href="{{ url_for('adminDashboard') }}">Manage Shifts</a>
-                <a href="{{ url_for('manageEmployees') }}">Manage Employees</a>
+                <a href="{{ url_for('adminDashboard') }}" class="nav-button">Manage Shifts</a>
+                <a href="{{ url_for('manageEmployees') }}" class="nav-button">Manage Employees</a>
             {% endif %}
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+                <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
             {% endif %}
         </div>
     </div>
-
-
-
 
     <!-- Flash Messages -->
     <div class="flash-container">
@@ -42,7 +39,10 @@
         {% block content %}{% endblock %}
     </div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>Built with Flask, Jinja2, SQLAlchemy, WTForms, and SQLite</p>
+    </footer>
+
 </body>
-
-
 </html>

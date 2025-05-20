@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
+from datetime import datetime
 
 # get the base package path
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -33,4 +34,14 @@ def loadUser(userId):
 
 # import routes
 from shiftapp import routes
+
+# filter to get weekday from date string
+@app.template_filter('weekday')
+def weekdayFilter(dateStr):
+    try:
+        dt = datetime.strptime(dateStr, "%Y-%m-%d")
+        return dt.strftime("%A")  # returns full weekday name like "Monday"
+    except Exception:
+        return "Invalid"
+
 

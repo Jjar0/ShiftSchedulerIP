@@ -35,6 +35,7 @@
         <tr>
             <th>ID</th>
             <th>Date</th>
+            <th>Day</th>
             <th>Start</th>
             <th>End</th>
             <th>Assigned To</th>
@@ -44,6 +45,7 @@
         <tr>
             <td>{{ shift.id }}</td>
             <td>{{ shift.date }}</td>
+            <td>{{ shift.date | weekday }}</td>  <!-- New column using filter -->
             <td>{{ shift.startTime }}</td>
             <td>{{ shift.endTime }}</td>
             <td>{{ shift.user.username if shift.user else 'Unassigned' }}</td>

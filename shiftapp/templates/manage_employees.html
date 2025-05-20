@@ -8,15 +8,19 @@
     <h3>Add New Employee</h3>
     <form method="POST">
         {{ addForm.hidden_tag() }}
+
         <label>{{ addForm.username.label }}</label>
         {{ addForm.username() }}
+        <br>
 
         <label>{{ addForm.password.label }}</label>
         {{ addForm.password() }}
-
         <br><br>
+
         {{ addForm.addSubmit(class="small-button") }}
     </form>
+
+
 
     <hr>
 
