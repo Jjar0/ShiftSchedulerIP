@@ -10,12 +10,17 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <div class="nav-title">Employee Shift Scheduler</div>
-        {% if current_user.is_authenticated %}
-            <div class="nav-actions">
+        <div class="nav-links">
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                <a href="{{ url_for('adminDashboard') }}">Manage Shifts</a>
+                <a href="{{ url_for('manageEmployees') }}">Manage Employees</a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
+
 
 
 

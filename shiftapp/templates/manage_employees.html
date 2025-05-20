@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-box">
+    <h2>Manage Employees</h2>
+
+    <h3>Add New Employee</h3>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.username.label }} {{ form.username() }}<br>
+        {{ form.password.label }} {{ form.password() }}<br><br>
+        {{ form.addSubmit(class="small-button") }}
+    </form>
+
+    <hr>
+
+    <h3>Remove Employee / Shifts</h3>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.employeeToRemove.label }} {{ form.employeeToRemove() }}<br><br>
+        {{ form.removeSubmit(class="delete-button") }}
+        {{ form.removeShiftsSubmit(class="delete-button") }}
+    </form>
+</div>
+{% endblock %}
