@@ -1,24 +1,38 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="login-box">
     <h2>Manage Employees</h2>
 
+    <!-- Add Employee Form -->
     <h3>Add New Employee</h3>
     <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.username.label }} {{ form.username() }}<br>
-        {{ form.password.label }} {{ form.password() }}<br><br>
-        {{ form.addSubmit(class="small-button") }}
+        {{ addForm.hidden_tag() }}
+        <label>{{ addForm.username.label }}</label>
+        {{ addForm.username() }}
+
+        <label>{{ addForm.password.label }}</label>
+        {{ addForm.password() }}
+
+        <br><br>
+        {{ addForm.addSubmit(class="small-button") }}
     </form>
 
     <hr>
 
+    <!-- Remove Employee / Shifts Form -->
     <h3>Remove Employee / Shifts</h3>
     <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.employeeToRemove.label }} {{ form.employeeToRemove() }}<br><br>
-        {{ form.removeSubmit(class="delete-button") }}
-        {{ form.removeShiftsSubmit(class="delete-button") }}
+        {{ removeForm.hidden_tag() }}
+        <label>{{ removeForm.employeeToRemove.label }}</label>
+        {{ removeForm.employeeToRemove() }}
+
+        <br><br>
+        {{ removeForm.removeSubmit(class="danger-button") }}
+        <br><br>
+        {{ removeForm.removeShiftsSubmit(class="danger-button") }}
     </form>
 </div>
 {% endblock %}
+
+

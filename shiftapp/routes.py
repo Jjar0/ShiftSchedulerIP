@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from shiftapp import app, db
 from shiftapp.models import User, Shift
-from shiftapp.forms import LoginForm, ShiftForm, ManageEmployeesForm
+from shiftapp.forms import LoginForm, ShiftForm, AddEmployeeForm, RemoveEmployeeForm
 
 # redirect to login page
 @app.route('/')
@@ -105,57 +105,51 @@ def deleteShift(shiftId):
 @app.route('/manage_employees', methods=['GET', 'POST'])
 @login_required
 def manageEmployees():
-    # block access if not admin
     if current_user.role != 'admin':
         flash('Access denied.')
         return redirect(url_for('home'))
 
-    # setup form
-    form = ManageEmployeesForm()
-    # get all employee users for dropdown
+    # init two separate forms
+    addForm = AddEmployeeForm()
+    removeForm = RemoveEmployeeForm()
+
+    # set dropdown choices for removal form BEFORE validation
     employees = User.query.filter_by(role='employee').all()
-    form.employeeToRemove.choices = [(emp.id, emp.username) for emp in employees]
+    removeForm.employeeToRemove.choices = [(emp.id, emp.username) for emp in employees]
 
-    # add new employee if form submitted
-    if form.addSubmit.data:
-        if form.validate_on_submit():
-            # create new employee
-            newEmp = User(username=form.username.data, password=form.password.data, role='employee')
-            db.session.add(newEmp)
-            db.session.commit()
-            flash('Employee added.')
-            return redirect(url_for('manageEmployees'))
-        else:
-            # catch duplicate username error
-            for error in form.username.errors:
-                flash(error)
-
-
-    # delete all shifts for selected employee
-    if form.removeShiftsSubmit.data and form.employeeToRemove.data:
-        # delete all shifts assigned to employee
-        Shift.query.filter_by(assignedTo=form.employeeToRemove.data).delete()
+    # add employee
+    if addForm.addSubmit.data and addForm.validate_on_submit():
+        print("Trying to add:", addForm.username.data)  # debug line for adding attempt
+        newEmp = User(username=addForm.username.data, password=addForm.password.data, role='employee')
+        db.session.add(newEmp)
+        db.session.commit()
+        flash('Employee added.')
+        return redirect(url_for('manageEmployees'))
+    
+    # remove all shifts
+    elif removeForm.removeShiftsSubmit.data and removeForm.validate_on_submit():
+        Shift.query.filter_by(assignedTo=removeForm.employeeToRemove.data).delete()
         db.session.commit()
         flash('Shifts removed for employee.')
         return redirect(url_for('manageEmployees'))
 
-    # delete selected employee and their shifts
-    if form.removeSubmit.data and form.employeeToRemove.data:
-        # delete all shifts for employee
-        Shift.query.filter_by(assignedTo=form.employeeToRemove.data).delete()
-        # delete user
-        toDelete = User.query.get(form.employeeToRemove.data)
+    # remove employee + shifts
+    elif removeForm.removeSubmit.data and removeForm.validate_on_submit():
+        Shift.query.filter_by(assignedTo=removeForm.employeeToRemove.data).delete()
+        toDelete = User.query.get(removeForm.employeeToRemove.data)
         db.session.delete(toDelete)
         db.session.commit()
         flash('Employee and their shifts removed.')
         return redirect(url_for('manageEmployees'))
 
-    # return employee management page
-    return render_template('manage_employees.html', form=form)
+    # debug print: show current list of employees
+    print("Current employees:", [u.username for u in employees])
+
+    # return page with both forms
+    return render_template('manage_employees.html', addForm=addForm, removeForm=removeForm)
 
 # logout current user
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
-
