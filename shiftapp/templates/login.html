@@ -3,6 +3,16 @@
 {% block content %}
 <div class="login-box">
   <h2>Login</h2>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+
   <form method="POST">
     {{ form.hidden_tag() }}
 
