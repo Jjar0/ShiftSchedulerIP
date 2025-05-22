@@ -13,16 +13,16 @@ class IntegrationTests(unittest.TestCase):
             db.session.add(user)
             db.session.commit()
 
-    def test_login_page_loads(self):
+    def test_login_page_loads(self): #ID: 5
         response = self.app.get('/login')
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Login', response.data)
 
-    def test_invalid_login(self):
+    def test_invalid_login(self): #ID: 6
         response = self.app.post('/login', data=dict(username='wrong', password='user'), follow_redirects=True)
         self.assertIn(b'Invalid credentials', response.data)
 
-    def test_valid_login_redirects(self):
+    def test_valid_login_redirects(self): #ID: 7
         self.app.post('/login', data=dict(username='admin', password='admin'), follow_redirects=True)
         response = self.app.get('/admin', follow_redirects=True)
         self.assertIn(b'Admin Dashboard', response.data)
